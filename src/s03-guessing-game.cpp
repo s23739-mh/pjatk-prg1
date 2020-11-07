@@ -1,23 +1,23 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-int main()
+auto main() ->int
 {
 
 srand (time(NULL));
 int number=rand()%100+1;
-int guess;
+std::string guess;
 
 std::cout<<"Pick a number:";
-std::cin>>guess;
+std::getline(std::cin,guess);
 
 
-while(number!=guess)
+while(number!=std::stoi(guess))
 {
-if(guess>number)
-{std::cout<<"Try a little lower:";std::cin>>guess;}
+if(std::stoi(guess)>number)
+{std::cout<<"Try a little lower:";std::getline(std::cin,guess);}
 else
-{std::cout<<"Try a little higher:";std::cin>>guess;}
+{std::cout<<"Try a little higher:";std::getline(std::cin,guess);}
 }
 std::cout<<"Wonderful! You guessed your number!\n";
 

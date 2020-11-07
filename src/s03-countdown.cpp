@@ -1,13 +1,12 @@
 #include <iostream>
-using namespace std;
-int main()
+auto main() -> int
 {
-int number;
-cout<<"Enter a number:";
-cin>>number;
-for(int i=0;i<=number;i++)
+std::string number;
+std::cout<<"Enter a number:";
+std::getline(std::cin,number);
+for(int i=0;i<=std::stoi(number);i++)
 {
-cout<<number-i<<"\n";
+std::cout<<std::stoi(number)-i<<"\n";
 }
 return 0;
 }

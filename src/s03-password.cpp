@@ -1,16 +1,15 @@
 
 #include <iostream>
-using namespace std;
-int main()
+auto main() -> int
 {
-    string haslo="brak";
-    string wejscie="brak";
-    cout << "Nadaj haslo:";
-    cin >> haslo;
+    std::string haslo="brak";
+    std::string wejscie="brak";
+    std::cout << "Nadaj haslo:";
+    std::getline(std::cin,haslo);
     do
 {
-cout<<"Podaj haslo:";
-cin>>wejscie;
+std::cout<<"Podaj haslo:";
+std::getline(std::cin,wejscie);
 } while(haslo!=wejscie);
     
     return 0;
