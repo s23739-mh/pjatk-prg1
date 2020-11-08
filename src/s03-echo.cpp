@@ -3,7 +3,7 @@
 
 auto casen(std::vector <std::string> input) ->void          //Wypisuje tablice w zwyczajny sposob (niezakonczony "\n")
 {
-for(unsigned int i=1;i<input.size();i++)                        
+for(unsigned int i=0;i<input.size();i++)                        
 {
 std::cout<<input[i]<<" ";
 }
@@ -11,7 +11,7 @@ std::cout<<input[i]<<" ";
 
 auto casel(std::vector <std::string> input) ->void          //Wypisuje jako tablice jako liste
 {
-for(unsigned int i=1;i<input.size();i++)                        
+for(unsigned int i=0;i<input.size();i++)                        
 {
 std::cout<<input[i]<<"\n";
 }
@@ -20,10 +20,10 @@ std::cout<<input[i]<<"\n";
 auto caser(std::vector <std::string> input, std::string option) ->void              
 {
 std::string help="";
-for(unsigned int i=1;i<=(input.size()-1)/2;i++)             //Zamienia kolejnosc liczb (dziala do polowy tablicy zeby nie zamienic dwukrotnie)                      
+for(unsigned int i=0;i<=(input.size()-1)/2;i++)             //Zamienia kolejnosc liczb (dziala do polowy tablicy zeby nie zamienic dwukrotnie)                      
 { 
-help=input[input.size()-i]; 
-input[input.size()-i]=input[i];
+help=input[input.size()-i-1]; 
+input[input.size()-i-1]=input[i];
 input[i]=help;                                  
 }
 if(option=="-l"){casel(input);}
