@@ -57,7 +57,6 @@ auto main() -> int {
     // Wywolanie funkcji zaleznie od wybranej opcji
     if (input[0] == "-n") {
       casen(input);
-      std::cout << "\n";
     } else
 
         if (input[0] == "-r") {
