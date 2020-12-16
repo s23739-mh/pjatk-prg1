@@ -86,7 +86,7 @@ auto evaluate_power(std::stack<double> &stack) -> void {
 }
 
 auto evaluate_sqrt(std::stack<double> &stack) -> void {
-  if (stack.size() < 2) {
+  if (stack.size() < 1) {
     throw std::logic_error{"not enough operands for sqrt"};
   }
   auto const a = pop_top(stack);
