@@ -1,32 +1,28 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-
 auto casen(std::vector<std::string> input)
     -> void // Wypisuje tablice w zwyczajny sposob (niezakonczony "\n")
 {
   for (unsigned int i = 0; i < input.size(); i++) {
-    std::cout << input[i] << " ";
+    if (input[i] != "-r" && input[i] != "-n" && input[i] != "-l") {
+      std::cout << input[i] << " ";
+    }
   }
 }
 
 auto casel(std::vector<std::string> input)
-    -> void // Wypisuje jako tablice jako liste
+    -> void // Wypisuje tablice jako liste
 {
   for (unsigned int i = 0; i < input.size(); i++) {
-    std::cout << input[i] << "\n";
+    if (input[i] != "-r" && input[i] != "-n" && input[i] != "-l") {
+      std::cout << input[i] << "\n";
+    }
   }
 }
 
 auto caser(std::vector<std::string> input, std::string option) -> void {
-  std::string help = "";
-  for (unsigned int i = 0; i <= (input.size() - 1) / 2;
-       i++) // Zamienia kolejnosc liczb (dziala do polowy tablicy zeby nie
-            // zamienic dwukrotnie)
-  {
-    help = input[input.size() - i - 1];
-    input[input.size() - i - 1] = input[i];
-    input[i] = help;
-  }
+  std::reverse(std::begin(input), std::end(input));
   if (option == "-l") {
     casel(input);
   }
@@ -39,47 +35,46 @@ auto caser(std::vector<std::string> input, std::string option) -> void {
   } // Sprawdza czy opcja -r wystepuje sama i wywoluje odpowiednia funkcje
 }
 
-auto main() -> int {
-  std::string line;
-  std::cout << "If you would like to end, type and enter 'break'\n";
+auto main(int argc, char *argv[]) -> int {
   std::vector<std::string> input;
+  if (argc > 1) {
+    for (auto i = 1; i < argc; i++) {
+      input.push_back(argv[i]);
+    }
+    if ((input[0] == "-r" && input[1] == "-n") ||
+        (input[0] == "-n" && input[1] == "-r")) {
+      caser(input, "-n");
+      return 0;
+    }
 
-  while (true) {
-    std::cout << "Input:";
-    std::getline(std::cin, line);
-    if (line == "break") {
-      break;
-    } // Wpisanie elementow do tablicy o nieokreslonej dlugosci
-    input.push_back(line);
-  }
+    if ((input[0] == "-r" && input[1] == "-l") ||
+        (input[0] == "-l" && input[1] == "-r")) {
+      caser(input, "-l");
+      return 0;
+    }
 
-  if (input.size() > 1) {
-    // Wywolanie funkcji zaleznie od wybranej opcji
     if (input[0] == "-n") {
       casen(input);
-    } else
+      return 0;
+    }
 
-        if (input[0] == "-r") {
+    if (input[0] == "-r") {
       caser(input, "-x");
-    } else
+      return 0;
+    }
 
-        if (input[0] == "-l") {
+    if (input[0] == "-l") {
       casel(input);
-    } else
-
-        if (input[0] == "-r -n") {
-      caser(input, "-n");
-    } else
-
-        if (input[0] == "-r -l") {
-      caser(input, "-l");
-    } else
+      return 0;
+    }
 
     {
       casen(input);
       std::cout << "\n";
+      return 0;
     }
-  } else
+  } else {
     std::cerr << "Za malo danych!\n";
-  return 0;
+    return 0;
+  }
 }

@@ -1,12 +1,11 @@
 #include <iostream>
-#include <stdlib.h>
-#include <time.h>
+#include <random>
+#include <string>
 auto main() -> int {
-
-  srand(time(NULL));
-  int number = rand() % 100 + 1;
   std::string guess;
-
+  std::random_device ran_dev;
+  std::uniform_int_distribution<int> d100(1, 100);
+  auto number = d100(ran_dev);
   std::cout << "Pick a number:";
   std::getline(std::cin, guess);
 

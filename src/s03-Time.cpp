@@ -17,21 +17,9 @@ Time::Time(unsigned short h, unsigned short m, unsigned short s) {
 
 auto Time::to_string() const -> std::string {
   auto out = std::ostringstream{};
-  if (hour < 10) {
-    out << "0" << hour << ":";
-  } else if (hour > 9) {
-    out << hour << ":";
-  }
-  if (minute < 10) {
-    out << "0" << minute << ":";
-  } else if (minute > 9) {
-    out << minute << ":";
-  }
-  if (second < 10) {
-    out << "0" << second;
-  } else if (second > 9) {
-    out << second;
-  }
+  out << std::setw(2) << std::setfill('0') << hour << ":";
+  out << std::setw(2) << std::setfill('0') << minute << ":";
+  out << std::setw(2) << std::setfill('0') << second;
   return out.str();
 }
 
@@ -103,16 +91,129 @@ auto Time::time_to_midnight() const -> Time {
   }
   return Time{a, b, c};
 }
+auto Time::operator+(Time const &time_i) const -> Time {
+  short unsigned int s = 0;
+  short unsigned int m = 0;
+  short unsigned int h = 0;
+  if (second + time_i.second > 59) {
+    s = second + time_i.second - 60;
+  } else {
+    s = second + time_i.second;
+  }
+  if (minute + time_i.minute > 59) {
+    m = minute + time_i.minute - 60;
+  } else {
+    m = minute + time_i.minute;
+  }
+  if (hour + time_i.hour > 23) {
+    h = hour + time_i.hour - 24;
+  } else {
+    h = hour + time_i.hour;
+  }
+  return Time{h, m, s};
+}
+auto Time::operator-(Time const &time_i) const -> Time {
+  auto h = hour;
+  auto m = minute;
+  auto s = second;
+  if (s - time_i.second < 0) {
+    m--;
+    s += 60 - time_i.second;
+  } else {
+    s -= time_i.second;
+  }
+  if (m - time_i.minute < 0) {
+    h--;
+    m += 60 - time_i.minute;
+  } else {
+    m -= time_i.minute;
+  }
+  if (h - time_i.hour < 0) {
+    h += 24 - time_i.hour;
+  } else {
+    h -= time_i.hour;
+  }
+  return Time{h, m, s};
+} // This definetly needs some work, Had no idea how to bite that
+
+auto Time::operator!=(Time const &time_i) const -> bool {
+  if (time_i.hour == hour && time_i.minute == minute &&
+      time_i.second == second) {
+    return false;
+  } else {
+    return true;
+  }
+}
+auto Time::operator==(Time const &time_i) const -> bool {
+  if (time_i.hour != hour && time_i.minute != minute &&
+      time_i.second != second) {
+    return false;
+  } else {
+    return true;
+  }
+}
+auto Time::operator<(Time const &time_i) const -> bool {
+  if (hour < time_i.hour && minute < time_i.minute && second < time_i.second) {
+    return true;
+  } else
+    return false;
+}
+auto Time::operator>(Time const &time_i) const -> bool {
+  if (hour < time_i.hour && minute < time_i.minute && second < time_i.second) {
+    return false;
+  } else
+    return true;
+}
 auto main() -> int {
+  std::string operation;
   auto time = Time(11, 59, 39);
+  auto time2 = Time(3, 50, 10);
   std::cout << "Time now:" << time.to_string() << "\n";
   time.next_second();
   std::cout << "Time second later:" << time.to_string() << "\n";
   std::cout << "Right now we have ";
   time.time_of_day();
-  auto time2 = time.time_to_midnight();
-  std::cout << "Time to midnight:" << time2.to_string()
+  auto t_midnight = time.time_to_midnight();
+  std::cout << "Time to midnight:" << t_midnight.to_string()
             << "\nMinutes and seconds:" << time.count_minutes() << " and "
             << time.count_seconds() << "\n";
-  return 0;
+  std::cout
+      << "Enter a sign for chosen operation:\n'+'For adding time\n'-'For "
+         "removing time\n'<'For checking if lesser\n'>'For checking if "
+         "greater\n'=='For checking if equal\n'!='For checking if not equal\n";
+  std::cout << "Time1:" << time.to_string() << "\n";
+  std::cout << "Time2:" << time2.to_string() << "\n";
+  std::getline(std::cin, operation);
+  ;
+  if (operation == "+") {
+    std::cout << time.operator+(time2).to_string() << "\n";
+  } else if (operation == "-") {
+    std::cout << time.operator-(time2).to_string() << "\n";
+  } else if (operation == "<") {
+    if (time.operator<(time2) == true) {
+      std::cout << "Yes\n";
+    } else {
+      std::cout << "No\n";
+    }
+  } else if (operation == ">") {
+    if (time.operator>(time2) == true) {
+      std::cout << "Yes\n";
+    } else {
+      std::cout << "No\n";
+    }
+  } else if (operation == "==") {
+    if (time.operator==(time2) == true) {
+      std::cout << "Yes\n";
+    } else {
+      std::cout << "No\n";
+    }
+  } else if (operation == "!=") {
+    if (time.operator!=(time2) == true) {
+      std::cout << "Yes\n";
+    } else {
+      std::cout << "No\n";
+    }
+  } else
+
+    return 0;
 }

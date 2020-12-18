@@ -1,13 +1,9 @@
 #include <iostream>
-auto main() -> int {
-  std::string a;
-  std::cout << "Enter a number:";
-  std::getline(std::cin, a);
-  for (int n = 1; n <= std::stoi(a); n++) {
-    std::cout << n << " ";
-    if (n % (3 * 5) == 0) {
-      std::cout << "Fizzbuzz";
-    } else {
+auto main(int argc, char *argv[]) -> int {
+  if (argc > 1) {
+    auto a = std::stoi(argv[1]);
+    for (int n = 1; n <= a; n++) {
+      std::cout << n << " ";
       if (n % 3 == 0) {
         std::cout << "Fizz";
       }
@@ -17,6 +13,5 @@ auto main() -> int {
       std::cout << "\n";
     }
   }
-
   return 0;
 }
