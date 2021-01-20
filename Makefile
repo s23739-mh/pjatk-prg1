@@ -38,7 +38,7 @@ list:
 		sed -e 's:\./src/::' -e 's/\.cpp\>//'
 
 build/%.bin: build/%.o
-	$(CXX) $(CXXFLAGS) -o $@ $<
+	$(CXX) $(CXXFLAGS) -o $@ $< -lpthread
 
 build/%.o: src/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
