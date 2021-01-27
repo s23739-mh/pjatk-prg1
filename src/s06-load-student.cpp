@@ -4,7 +4,6 @@
 #include <iostream>
 #include <unistd.h>
 
-
 auto main() -> int {
   auto file_path = std::string{"./student.txt"};
   auto file_des = open(file_path.c_str(), O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
