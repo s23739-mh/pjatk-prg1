@@ -6,11 +6,13 @@
 #include <thread>
 #include <unistd.h>
 auto fill_queue(std::queue<std::string> &text) -> void {
-  for (int j = 0; j < 5; j++) {
-    for (int i = 0; i < 2; i++) {
-      text.push({"TGH" + std::to_string(1 + i * (j + 1))});
-    }
-    text.push(" ");
+ std::string help=" "; auto i=0;
+while(i<4)
+{
+std::getline(std::cin,help);
+if(help[0]==0||help[0]==10)
+{i++;}
+    text.push(help);
   }
 }
 
@@ -18,7 +20,7 @@ auto get_from_queue(std::mutex &mtx, std::queue<std::string> &q, int thread_ID)
     -> void {
   std::lock_guard<std::mutex> locker(mtx);
   if (q.empty() == false) {
-    if (q.front() != " ") {
+    if (q.front()[0]!=0 && q.front()[0]!=10) {
       std::cout << "from thread" << thread_ID << ": " << q.front() << "\n";
     } else {
       std::cout << "thread " << thread_ID << " exiting\n";

@@ -1,0 +1,4 @@
+Imie:Mikolaj
+Nazwisko:Holdakowski
+Semestr:1
+Srednia ocen:4.15

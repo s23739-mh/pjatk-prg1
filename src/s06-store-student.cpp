@@ -16,7 +16,7 @@ auto Student::to_string() const -> std::string {
 auto main() -> int {
   auto s23739 = Student("Mikolaj", "Holdakowski", "s23739", 1, 4.15);
   auto file_path = std::string{"./student.txt"};
-  auto file_des = (file_path.c_str(), O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+  auto file_des = open(file_path.c_str(), O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
   auto n =
       write(file_des, s23739.to_string().data(), s23739.to_string().size());
   if (n == -1) {
