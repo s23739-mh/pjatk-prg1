@@ -7,8 +7,7 @@ Game::Game(unsigned short int move, unsigned short int point,
 Checker::Checker(unsigned short int number, bool col, bool here, bool Queen)
     : cell_no{number}, color{col}, is_here{here}, is_Queen{Queen} {}
 
-bool Game::isDraw(
-            int moves) // moves - number of moves w/o any takes
+bool Game::isDraw(int moves) // moves - number of moves w/o any takes
 {
   auto White_no = 0;
   auto Black_no = 0;
@@ -33,8 +32,7 @@ bool Game::isDraw(
   return false;
 }
 
-bool Game::isEnd() 
-{
+bool Game::isEnd() {
   auto help = 0;
   bool areWhite = false;
   bool areBlack = false;
@@ -89,7 +87,7 @@ bool Game::IsThereTakes(int n,
     }
   }
   if (turn == true) {
-    a = CanTake( n, n + 3);
+    a = CanTake(n, n + 3);
     if (a != false && Board[n + 3].color == false) {
       return true;
     }
@@ -97,11 +95,11 @@ bool Game::IsThereTakes(int n,
     if (a != false && Board[n + 4].color == false) {
       return true;
     }
-    a = CanTake( n, n + 5);
+    a = CanTake(n, n + 5);
     if (a != false && Board[n + 5].color == false) {
       return true;
     }
-    a = CanTake( n, n - 3);
+    a = CanTake(n, n - 3);
     if (a != false && Board[n - 3].color == false) {
       return true;
     }
@@ -117,8 +115,7 @@ bool Game::IsThereTakes(int n,
   return false;
 }
 
-bool Game::IsAnyTakes(
-                      bool turn) // Function looking for takes from whole board
+bool Game::IsAnyTakes(bool turn) // Function looking for takes from whole board
 {
   for (auto i = 0; i < 32; i++) {
     if (IsThereTakes(i, turn) == true) {
@@ -211,11 +208,10 @@ bool Game::CanTake(int Taking,
 }
 
 int Game::isMove(int cell1, int cell2,
-                 bool move) // color=true - Black     
+                 bool move) // color=true - Black
 {
   if (IsAnyTakes(move) == true) {
-    if (CanTake(cell1, cell2) == true &&
-        Board[cell1].color == move) {
+    if (CanTake(cell1, cell2) == true && Board[cell1].color == move) {
       return 10;
     } else
       return false;
@@ -335,8 +331,7 @@ int convert_coordinates(
   return (4 * (8 - j) + i - 1);
 }
 
-int Game::GetInput(WINDOW *BoardWin,
-             bool WantEmpty) {
+int Game::GetInput(WINDOW *BoardWin, bool WantEmpty) {
 
   auto input = new char[10];
   do {
@@ -453,7 +448,7 @@ auto main() -> int {
   // 6Jakis stuff
   // Setup stuff
   initscr();
-  auto a = 0, b = 0, move = 0, 
+  auto a = 0, b = 0, move = 0,
        NoTakeMove = 0;  // a - 1st input, b - second input,  move - move number,
                         // NoTakeMove - Number of moves without taking in a row
   bool didMove = false; // Used Later -If checker made a move
@@ -468,14 +463,14 @@ auto main() -> int {
   BoardDraw(play.Board);
 
   while (true) {
-if(play.isDraw(move)==true)
-{
-Draw=true; break;
-}
-if(play.isEnd()==true)
-{
-Winner=1; break;
-}
+    if (play.isDraw(move) == true) {
+      Draw = true;
+      break;
+    }
+    if (play.isEnd() == true) {
+      Winner = 1;
+      break;
+    }
     move++;
     do {   // White
       do { // Input
@@ -538,14 +533,14 @@ Winner=1; break;
 
     didTake = false;
     didMove = false;
-if(play.isDraw(move)==true)
-{
-Draw=true; break;
-}
-if(play.isEnd()==true)
-{
-Winner=0; break;
-}
+    if (play.isDraw(move) == true) {
+      Draw = true;
+      break;
+    }
+    if (play.isEnd() == true) {
+      Winner = 0;
+      break;
+    }
     do { // Black
 
       do {
@@ -557,8 +552,7 @@ Winner=0; break;
       } while (play.isMove(a, b, true) ==
                false); // Asks for input until move is legal
 
-      if (play.isMove(a, b, true) ==
-          10) // Loop not ending until its nothing to
+      if (play.isMove(a, b, true) == 10) // Loop not ending until its nothing to
       {
         if (a % 8 > 3) {
           play.Board[a].is_here = false; // Plays a move with taking (odd row)
@@ -610,15 +604,17 @@ Winner=0; break;
     didMove = false;
   }
   endwin();
-if(Draw==false)
-{
-std::cout<<"\nThe winner is ";
-if(Winner==0){std::cout<<"White\n";}
-if(Winner==1){std::cout<<"Black\n";}
-}
-if(Draw==true)
-{
-std::cout<<"\nDraw.\n";
-}
+  if (Draw == false) {
+    std::cout << "\nThe winner is ";
+    if (Winner == 0) {
+      std::cout << "White\n";
+    }
+    if (Winner == 1) {
+      std::cout << "Black\n";
+    }
+  }
+  if (Draw == true) {
+    std::cout << "\nDraw.\n";
+  }
   return 0;
 }

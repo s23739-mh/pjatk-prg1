@@ -22,12 +22,12 @@ class Game {
 public:
   std::vector<Checker> Board;
   int isMove(int, int, bool);
-  int GetInput(WINDOW*, bool );
-  bool CanTake( int, int);
+  int GetInput(WINDOW *, bool);
+  bool CanTake(int, int);
   bool IsThereTakes(int, bool);
   bool IsAnyTakes(bool);
   bool isEnd();
-  bool isDraw( int);
+  bool isDraw(int);
   bool isEnd();
   std::vector<Checker> setupBoard();
   Game(unsigned short int, unsigned short int, std::vector<Checker>);
