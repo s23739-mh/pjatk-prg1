@@ -28,7 +28,6 @@ public:
   bool IsAnyTakes(bool);
   bool isEnd();
   bool isDraw(int);
-  bool isEnd();
   std::vector<Checker> setupBoard();
   Game(unsigned short int, unsigned short int, std::vector<Checker>);
 };

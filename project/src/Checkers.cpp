@@ -119,8 +119,7 @@ bool Game::IsAnyTakes(bool turn) // Function looking for takes from whole board
 {
   for (auto i = 0; i < 32; i++) {
     if (IsThereTakes(i, turn) == true) {
-      std::cout << i << "\n" << i;
-      ;
+      
       return true;
     }
   }
@@ -135,7 +134,6 @@ bool Game::CanTake(int Taking,
   if (Board[Taking].is_here == true && Board[Token].is_here == true &&
       Board[Taking].color != Board[Token].color) {
 
-    if (Board[Taking].is_Queen == false) {
 
       if (Token < 4 || Token > 28) {
         return false;
@@ -201,7 +199,7 @@ bool Game::CanTake(int Taking,
         {
           return true;
         }
-      }
+      
     }
   }
   return false;
@@ -482,7 +480,7 @@ auto main() -> int {
       } while (play.isMove(a, b, false) ==
                false); // Asks for input until move is legal
 
-      if (play.isMove(a, b, false) == 10) {
+      if (play.isMove(a, b, false) == 10) {                         //Loop not ending until its nothing to take
         if (a % 8 > 3) {
           play.Board[a].is_here = false; // Plays a move with taking  (odd row)
           play.Board[b].is_here = false;
@@ -504,6 +502,10 @@ auto main() -> int {
           play.Board[b - (a - b) + 1].is_here = true;
           play.Board[b - (a - b) + 1].is_Queen = play.Board[a].is_Queen;
           play.Board[a].is_Queen = false;
+            if (b - (a - b) + 1 < 4) {
+            play.Board[b - (a - b) + 1].is_Queen =
+                true; // Convert into a Queen when on the last row
+        }
           NoTakeMove = 0;
         }
       }
@@ -552,7 +554,7 @@ auto main() -> int {
       } while (play.isMove(a, b, true) ==
                false); // Asks for input until move is legal
 
-      if (play.isMove(a, b, true) == 10) // Loop not ending until its nothing to
+      if (play.isMove(a, b, true) == 10) // Loop not ending until its nothing to take
       {
         if (a % 8 > 3) {
           play.Board[a].is_here = false; // Plays a move with taking (odd row)
@@ -561,6 +563,10 @@ auto main() -> int {
           play.Board[b - (a - b) - 1].is_here = true;
           play.Board[b - (a - b) - 1].is_Queen = play.Board[a].is_Queen;
           play.Board[a].is_Queen = false;
+          if (b - (a - b) - 1 < 4) {
+            play.Board[b - (a - b) - 1].is_Queen =
+            true; // Convert into a Queen when on the last row
+        }
           didTake = true;
         } else {
 
